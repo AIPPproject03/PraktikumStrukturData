@@ -126,22 +126,25 @@ void editGame(){ //-------------------( MENGEDIT GAME )---------------------//
 	cout << " Game Not Found!" << endl;
 }
 void showGame(){ //-------------------( MELIHAT SEMUA GAME YANG ADA )----------------------//
-	if (head == NULL){
-		cout << " The Game List Is Empty!" << endl;
-		return;
-	}else{
-		Node* current = head;
-		while(current != NULL){
-			cout <<"|=========================================|"<< endl;
-			cout <<"|Name   : "<< current->data.name << endl;
-			cout <<"|Genre  : "<< current->data.genre << endl;
-			cout <<"|Year   : "<< current->data.year << endl;
-			cout <<"|Rating : "<< current->data.rating << endl;
-			cout <<"|=========================================|"<< endl;
-			current = current->next;
-		}
-	}
+    if (head == NULL){
+        cout << " The Game List Is Empty!" << endl;
+        return;
+    } else {
+        Node* current = head;
+        cout << "+===========================================================+"<< endl;
+        cout << "| No. |       Name      |    Genre   |    Year    |  Rating |"<< endl;
+        cout << "+===========================================================+"<< endl;
+
+        int counter = 1;
+        while(current != NULL){
+            printf("| %-3d | %-15s | %-10s |    %-7d |  %-5.2f  |\n", counter, current->data.name.c_str(), current->data.genre.c_str(), current->data.year, current->data.rating);
+            current = current->next;
+            counter++;
+        }
+        cout << "+===========================================================+\n";
+    }
 }
+
 
 //================= (BAGIAN SORTING BUBBLE DAN SELECTION) ====================//
 
@@ -363,9 +366,10 @@ void searchName() {
     }
     string searchName;
     bool found = false;
-
+    
+    cin.ignore();
     cout << " Enter The Name Of The Game You Are Looking For : ";
-    cin >> searchName;
+    getline(cin,searchName);
 
     Node* current = head;
     while (current != NULL) {
@@ -392,9 +396,10 @@ void searchGenre() {
     }
     string searchGenre;
     bool found = false;
-
+    
+    cin.ignore();
     cout << " Enter The Genre Of The Game You Are Looking For : ";
-    cin >> searchGenre;
+    getline(cin,searchGenre);
 
     Node* current = head;
     while (current != NULL) {
@@ -510,29 +515,34 @@ int main(){
 				cout <<"|{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}|"<< endl;
 				cout <<"|==(CHOOSE THE DELETE SYSTEM)==|"<< endl;
 				cout <<"|{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}|"<< endl;
-				cout <<"|[1] FIFO (DEQUEUE)            |"<< endl;
-				cout <<"|[2] LIFO (POP)                |"<< endl;
-				cout <<"|[3] EXIT                      |"<< endl;
+				cout <<"|[1] DELETE BY NAME            |"<< endl;
+				cout <<"|[2] FIFO (DEQUEUE)            |"<< endl;
+				cout <<"|[3] LIFO (POP)                |"<< endl;
+				cout <<"|[4] EXIT                      |"<< endl;
 				cout <<"|==============================|"<< endl;
 				cout <<"| Choose : ";
 				cin >> menu2;
 				cout << endl;
 				switch(menu2){
 					case 1:{
-						dequeue();
+						delGame();
 						break;
 					}
 					case 2:{
-						pop();
+						dequeue();
 						break;
 					}
 					case 3:{
+						pop();
+						break;
+					}
+					case 4:{
 						break;
 					}
 					default:
 					cout <<" Invalid Command"<< endl;
 				}getch();
-			}while(menu2 != 3);
+			}while(menu2 != 4);
 			break;}
 			case 3:{
 			system("cls");
@@ -557,6 +567,7 @@ int main(){
 				cout << endl;
 				switch(menu4){
 					case 1:{
+						system("cls");
 						showGame();
 						break;
 					}
@@ -565,7 +576,8 @@ int main(){
 					    do{
 					    	menu_src = 0;
 				            system("cls");
-				            cout <<"__________S_E_A_R_C_H___________"<< endl;
+				            cout <<"________________________________"<< endl;
+				            cout <<"|_______|_S_E_A_R_C_H_|________|"<< endl;
 			            	cout <<"|==(SEARCH THE GAME BY WHAT?)==|"<< endl;
 				            cout <<"|[1] BY NAME                   |"<< endl;
 				            cout <<"|[2] BY GENRE                  |"<< endl;
@@ -606,12 +618,14 @@ int main(){
 						int choose,BorS;
 						char ulang;
 						do{
+							system("cls");
 							showGame();
 							BorS = 0;
 							choose = 0;
 							ulang = 'y';
 					    	menu_sort = 0;
-						    cout <<"__________S_O_R_T_I_N_G_________"<< endl;
+					    	cout <<"________________________________"<< endl;
+						    cout <<"|_______|_S_O_R_T_I_N_G_|______|"<< endl;
 			                cout <<"|===(SORT THE GAME BY WHAT?)===|"<< endl;
 				            cout <<"|[1] BY NAME                   |"<< endl;
 				            cout <<"|[2] BY YEAR                   |"<< endl;
@@ -663,7 +677,7 @@ int main(){
                                 }getch();
 								}
 								break;
-							}
+							    }
 								case 2:{
 									while (ulang != 'n' && ulang != 'N') {
 				            		cout <<" Bubble(1) Atau Selection(2) : ";
